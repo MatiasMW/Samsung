@@ -5,26 +5,26 @@ download.file(fileUrl, destfile="./data1/proyect.zip")
 proyectData <- read.csv("./data1/proyect.zip")
 unzip<-unzip("./data1/proyect.zip")
 
-X_train<-read.csv("C:\\Users\\Usuario\\Documents\\UCI HAR Dataset\\train\\X_train.txt", header=FALSE)
+X_train<-read.csv("./train/X_train.txt", header=FALSE)
 
-subject_train<-read.csv("C:\\Users\\Usuario\\Documents\\UCI HAR Dataset\\train\\subject_train.txt")
+subject_train<-read.csv("./train/subject_train.txt")
 
-y_train<-read.csv("C:\\Users\\Usuario\\Documents\\UCI HAR Dataset\\train\\y_train.txt", header=FALSE)
+y_train<-read.csv("./train/y_train.txt", header=FALSE)
 
-y_test<-read.csv("C:\\Users\\Usuario\\Documents\\UCI HAR Dataset\\test\\y_test.txt", header=FALSE)
-X_test<-read.csv("C:\\Users\\Usuario\\Documents\\UCI HAR Dataset\\test\\X_test.txt", header=FALSE)
-subject_test<-read.csv("C:\\Users\\Usuario\\Documents\\UCI HAR Dataset\\test\\subject_test.txt", header=FALSE)
+y_test<-read.csv("./test/y_test.txt", header=FALSE)
+X_test<-read.csv("./test/X_test.txt", header=FALSE)
+subject_test<-read.csv("./test/subject_test.txt", header=FALSE)
 
 y_testtrain<-rbind(y_test,y_train)
 subject_testtrain<-rbind(subject_test,subject_train)
 
-X_testvar<-read.csv("C:\\Users\\Usuario\\Documents\\UCI HAR Dataset\\test\\X_test.txt",sep=" ",dec=".",header=FALSE)
+X_testvar<-read.csv("./X_test.txt",sep=" ",dec=".",header=FALSE)
 testmeanstd<-X_testvar[,3:8]
-X_trainvar<-read.csv("C:\\Users\\Usuario\\Documents\\UCI HAR Dataset\\train\\X_train.txt",sep=" ",dec=".",header=FALSE)
+X_trainvar<-read.csv("./train/X_train.txt",sep=" ",dec=".",header=FALSE)
 trainmeanstd<-X_trainvar[,3:8]
 testtrainmeanstd<-rbind(meanstd,trainmeanstd)
 
-X_trainprueba<-read.table("C:\\Users\\Usuario\\Documents\\UCI HAR Dataset\\train\\X_train.txt",comment.char = "",colClasses="numeric")
+X_trainprueba<-read.table("./train/X_train.txt",comment.char = "",colClasses="numeric")
 
 X_testtrain2<-rbind(X_testprueba,X_trainprueba)
 
