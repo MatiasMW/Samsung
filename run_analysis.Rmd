@@ -1,10 +1,13 @@
+## Create a destination directory
 if(!file.exists("./data1")){dir.create("./data1")}
+## Download the data into the directory
 fileUrl<-"https://d396qusza40orc.cloudfront.net/
 getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
 download.file(fileUrl, destfile="./data1/proyect.zip")
 proyectData <- read.csv("./data1/proyect.zip")
 unzip<-unzip("./data1/proyect.zip")
 
+## Read the data
 X_train<-read.csv("./train/X_train.txt", header=FALSE)
 
 subject_train<-read.csv("./train/subject_train.txt")
@@ -15,8 +18,11 @@ y_test<-read.csv("./test/y_test.txt", header=FALSE)
 X_test<-read.csv("./test/X_test.txt", header=FALSE)
 subject_test<-read.csv("./test/subject_test.txt", header=FALSE)
 
+## Combine the data
 y_testtrain<-rbind(y_test,y_train)
 subject_testtrain<-rbind(subject_test,subject_train)
+
+##Extract the measurements on the mean and standard deviation for each measurement.
 
 X_testvar<-read.csv("./X_test.txt",sep=" ",dec=".",header=FALSE)
 testmeanstd<-X_testvar[,3:8]
@@ -28,8 +34,9 @@ X_trainprueba<-read.table("./train/X_train.txt",comment.char = "",colClasses="nu
 
 X_testtrain2<-rbind(X_testprueba,X_trainprueba)
 
-todos=cbind(subject_testtrain,X_testtrain2,y_testtrain)
+dataset=cbind(subject_testtrain,X_testtrain2,y_testtrain)
 
+## Assign apropiately names to the variables
 featurescol2<-features[,2]
 featuresTT<-featurescol2=="mean()"|featurescol2=="std()"
 X_testtrainTT<-X_testtrain2[,featuresTT]
@@ -51,4 +58,8 @@ names(subject_testtrain)<-"SUBJECT"
 
 X_testtrain<-rbind(X_test,X_train)
 
-da<-ddply(todos,.(SUBJECT, ACTIVITY),summarize, mean=(mean(todos[,2])))
+write.table(X_testtrain,file="tidy.txt", row.names=FALSE)
+
+## Create a 2nd, independent tidy data set with the average of each variable for each activity and each subject.
+
+da<-ddply(todos,.(SUBJECT, ACTIVITY),summarize, mean=(mean(dataset[,2])))
